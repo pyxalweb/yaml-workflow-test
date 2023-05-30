@@ -1,13 +1,11 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 
 print ('Hello World 1')
 
-# Create a new instance of the Chrome driver
-options = Options()
-options.add_argument("--headless")
-driver = webdriver.Chrome(options=options)
+# Create a new instance of the Firefox driver
+driver = webdriver.Chrome()
 
 # Navigate to the URL
 driver.get('https://www.kexp.org/playlist/')
