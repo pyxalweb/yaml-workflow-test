@@ -21,10 +21,17 @@ jobs:
       - name: Install dependencies
         run: |
           pip install selenium beautifulsoup4 spotipy
-          wget https://chromedriver.storage.googleapis.com/114.0.5735.16/chromedriver_linux64.zip
+          # Install Chrome browser and ChromeDriver (for Chrome browser)
+          apt-get update
+          apt-get install -y chromium-browser
+          # Download and configure ChromeDriver
+          CHROME_VERSION=$(chromium-browser --version | awk '{print $2}' | cut -d. -f1-3)
+          wget -q "https://chromedriver.storage.googleapis.com/114.0.5735.16/chromedriver_linux64.zip" -O LATEST_RELEASE
+          CHROMEDRIVER_VERSION=$(cat LATEST_RELEASE)
+          wget "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
           unzip chromedriver_linux64.zip
           chmod +x chromedriver
-          sudo mv chromedriver /usr/local/bin/
+          mv chromedriver /usr/local/bin/
 
       - name: Run script
         run: python test.py
